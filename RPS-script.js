@@ -21,5 +21,17 @@ function getComputerChoice () {
 
 }
 
+function getHumanChoice () {
+    // Función sin variables de entrada.
+    // Se crea una variable que almacena un input pasado por el usuario.
+    const humanNum = prompt("Choose rock, paper or scissors:").toLocaleLowerCase()
+    if ((humanNum == "rock") || (humanNum == "paper") || (humanNum == "scissors")) {
+        return humanNum
+    }
+    else {
+        alert("Wrong choice!")
+    };
+}
 
 console.log(getComputerChoice())
+console.log(getHumanChoice())
