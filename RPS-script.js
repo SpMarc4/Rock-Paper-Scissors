@@ -37,33 +37,67 @@ function getHumanChoice () {
 
 // Se declaran las variables para almacenar las puntuaciones del usuario
 // y PC.
-let humanScore = 0;
-let computerScore = 0;
+
 
 // Función en el que se escoge el ganador de la ronda. Tiene de
 // variables de entradas la selección del usuario y PC.
 
 function playRound (humanChoice, computerChoice) {
     // Se crean todas las combinaciones del juego en formato codicional.
+    // Si hay empate se devuelve 'tie'
     if ((humanChoice == 'rock' || humanChoice == 'paper' || humanChoice == 'scissors') && humanChoice == computerChoice) {
         console.log(`It's a tie! You both chose ${humanChoice.charAt(0)+humanChoice.slice(1)}.`);
-        return `It's a tie! You both chose ${humanChoice.charAt(0)+humanChoice.slice(1)}.`;
+        return 'tie';
     }
+    // Si el humano gana devuelve 'wim'
     else if ((humanChoice == 'rock' && computerChoice == 'scissors') ||
      (humanChoice == 'scissors' && computerChoice == 'paper') ||
       (humanChoice == 'paper' && computerChoice == 'rock')) {
-        ++humanScore
         console.log(`You win! ${humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1)} beats ${computerChoice.charAt(0).toUpperCase()+computerChoice.slice(1)}.`);
-        return `You win! ${humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1)} beats ${computerChoice.charAt(0).toUpperCase()+computerChoice.slice(1)}.`;
+        return 'win';
       }
+    // Si el humano pierde se devuelve 'lose'
     else {
-        ++computerScore
         console.log(`You lose! ${computerChoice.charAt(0).toUpperCase()+computerChoice.slice(1)} beats ${humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1)}.`);
-        return `You lose! ${computerChoice.charAt(0).toUpperCase()+computerChoice.slice(1)} beats ${humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1)}.`;
+        return 'lose';
     };
+    // Los return values de esta función se utilizarán en los condicionales de la función "playGame".
 };
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+    // Designación de variables, puntuaciones para cada jugador y resultado del juego de una ronda.
+    let humanScore = 0;
+    let computerScore = 0;
+    let result = '';
+    // Bucle en el que se juega 1 vez por iteración, llamando a la función playGround.
+    for (let i = 0 ; i < 5; i++ ) {
+        // Con la llamada de la función playGround se almacena una valor resultado que determina quien ha ganado al ronda.
+        result = playRound(getHumanChoice(),getComputerChoice());
+        // El resultado se utiliza en los condicionales para actualizar el resultado de la partida.
+        if (result == 'win') {
+            humanScore++
+            console.log(`Human wins this round! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+        }
+        else if (result == 'lose') {
+            computerScore++
+            console.log(`Computer wins this round! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+        }
+        else {
+            console.log(`It's a tie! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+        }
+        ;
+    };
+    // Se crea otro condicional para declarar un ganador/perdedor/empate en función del resultado final.
+    if (humanScore > computerScore) {
+        console.log(`Human wins! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+    }
+    else if (humanScore < computerScore) {
+        console.log(`Computer wins! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+    }
 
-playRound(humanSelection,computerSelection);
+    else {
+        console.log(`It's a tie! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+    }
+};
+
+playGame()
