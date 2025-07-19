@@ -64,6 +64,8 @@ function playRound (humanChoice, computerChoice) {
     // Los return values de esta función se utilizarán en los condicionales de la función "playGame".
 };
 
+
+/*
 function playGame() {
     // Designación de variables, puntuaciones para cada jugador y resultado del juego de una ronda.
     let humanScore = 0;
@@ -83,7 +85,7 @@ function playGame() {
             console.log(`Computer wins this round! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
         }
         else {
-            console.log(`It's a tie! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+            console.log(`It's a tie this round! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
         }
         ;
     };
@@ -101,3 +103,105 @@ function playGame() {
 };
 
 playGame()
+
+*/
+
+
+
+
+
+let humanScore = 0;
+let computerScore = 0;
+let totalRounds = 0;
+
+let scoreText = `Human (${humanScore}) - Computer (${computerScore})`
+const body = document.querySelector("body");
+const divScore = document.createElement("div");
+divScore.classList = "divScore";
+
+const h2Score = document.createElement("h2");
+h2Score.classList = "h2Score";
+
+const divResult = document.createElement("div");
+divResult.classList = "divResult";
+
+divResult.textContent = scoreText;
+h2Score.textContent = `Scoreboard - Round: ${totalRounds}`;
+
+
+body.appendChild(divScore);
+divScore.appendChild(h2Score)
+divScore.appendChild(divResult)
+/*
+function playgame(numRounds) {
+    return function (event) {logica}
+}
+*/
+const btns = document.querySelectorAll("button");
+btns.forEach(
+    (elem) => elem.addEventListener("click", 
+        function playGame() {
+            console.log(elem)
+            totalRounds++;
+            if (totalRounds<=5) {
+        
+                let playerSelection = elem.textContent.toLowerCase();
+                let result = playRound(playerSelection,getComputerChoice());
+                // El resultado se utiliza en los condicionales para actualizar el resultado de la partida.
+                if (result == 'win') {
+                    humanScore++
+                    scoreText = `Human wins this round! | Human (${humanScore}) - Computer (${computerScore})`;
+                    divResult.textContent = scoreText;
+                    h2Score.textContent = `Scoreboard - Round: ${totalRounds}`;
+                    
+                    console.log(`Human wins this round! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+                }
+                else if (result == 'lose') {
+                    computerScore++
+                    scoreText = `Computer wins this round! | Human (${humanScore}) - Computer (${computerScore})`;
+                    divResult.textContent = scoreText;
+                    h2Score.textContent = `Scoreboard - Round: ${totalRounds}`;
+                    console.log(`Computer wins this round! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+                }
+                else {
+                    scoreText = `It's a tie this round! | Human (${humanScore}) - Computer (${computerScore})`;
+                    divResult.textContent = scoreText;
+                    h2Score.textContent = `Scoreboard - Round: ${totalRounds}`;
+                    console.log(`It's a tie this round! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+                }
+                ;
+                
+            }
+            
+            if (totalRounds==5) {
+            // Se crea otro condicional para declarar un ganador/perdedor/empate en función del resultado final.
+            if (humanScore > computerScore) {
+                scoreText += ` | Human wins the game`;
+                divResult.textContent = scoreText;
+                console.log(`Human wins! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+            }
+            else if (humanScore < computerScore) {
+                scoreText += ` | Computer wins the game`;
+                divResult.textContent = scoreText;
+                console.log(`Computer wins! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+            }
+
+            else {
+                scoreText += ` | The game finished with a tie!`;
+                divResult.textContent = scoreText;
+                console.log(`It's a tie! | Scoreboard : Human (${humanScore}) - Computer (${computerScore})`)
+            }
+            humanScore = 0;
+            computerScore = 0;
+            totalRounds = 0;
+            }
+
+        
+        }
+        /*function () {
+            let playerSelection = elem.textContent.toLowerCase();
+            playRound(playerSelection,getComputerChoice())
+        }*/)
+);
+
+
